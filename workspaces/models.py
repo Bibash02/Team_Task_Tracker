@@ -7,7 +7,7 @@ from common.models import TimeStampedModel
 class Workspace(TimeStampedModel):
     name = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    ownder = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_workspaces')
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='owned_workspaces')
     members = models.ManyToManyField(settings.AUTH_USER_MODEL, through='WorkspaceMembership', related_name='workspaces')
 
     def save(self, *args, **kwargs):
@@ -31,4 +31,4 @@ class WorkspaceMembership(TimeStampedModel):
         unique_together = ("workspace", "user")
 
     def __str__(self):
-        return f"{self.user} @ {self.workspaces} ({self.role})"
+        return f"{self.user} @ {self.workspace} ({self.role})"

@@ -4,7 +4,7 @@ from .models import Workspace, WorkspaceMembership
 
 User = get_user_model()
 
-class WorkSpaceMembershipSerializer(serializers.ModelSerializer):
+class WorkspaceMembershipSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source = 'user.username', read_only=True)
 
     class Meta:
@@ -12,7 +12,7 @@ class WorkSpaceMembershipSerializer(serializers.ModelSerializer):
         fields = ['id', 'workspace', 'user', 'username', 'role', 'created_at']
         read_only_fields = ['id', 'created_at', 'user', 'workspace']
 
-class WorkSpaceSerializer(serializers.ModelSerializer):
+class WorkspaceSerializer(serializers.ModelSerializer):
     member_count = serializers.IntegerField(read_only=True, default=0)
 
     class Meta:
@@ -20,7 +20,7 @@ class WorkSpaceSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'slug', 'owner', 'member_count', 'created_at', 'updated_at']
         read_only_fields = ['id', 'slug', 'owner', 'member_count', 'created_at', 'updated_at']
 
-class WorkSpaceMemberAddSerializer(serializers.ModelSerializer):
+class WorkspaceMemberAddSerializer(serializers.Serializer):
     username = serializers.CharField()
     role = serializers.ChoiceField(choices=WorkspaceMembership.Role.choices, default=WorkspaceMembership.Role.MEMBER)
 

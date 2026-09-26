@@ -1,3 +1,8 @@
-from django.urls import path
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = []
+from workspaces.views import WorkspaceViewSet
+
+router = DefaultRouter()
+router.register("", WorkspaceViewSet, basename="workspace")
+
+urlpatterns = router.urls
